@@ -11,9 +11,13 @@ import type {User} from '../user/model';
 export type Freet = {
   _id: Types.ObjectId; // MongoDB assigns each object this ID on creation
   authorId: Types.ObjectId;
+  parent: Types.ObjectId;
   dateCreated: Date;
   content: string;
+  tags: [string];
   dateModified: Date;
+  comments: [Types.ObjectId];
+  forum: boolean;
 };
 
 export type PopulatedFreet = {
@@ -35,6 +39,10 @@ const FreetSchema = new Schema<Freet>({
     required: true,
     ref: 'User'
   },
+  parent: {
+    type: Schema.Types.ObjectId,
+    required: false
+  },
   // The date the freet was created
   dateCreated: {
     type: Date,
@@ -45,9 +53,24 @@ const FreetSchema = new Schema<Freet>({
     type: String,
     required: true
   },
+  tags: {
+    type: [String]
+  },
+  // Image if the tweet has an image
+  // image: {
+  //   type: Buffer,
+  //   required: false
+  // },
   // The date the freet was modified
   dateModified: {
     type: Date,
+    required: true
+  },
+  comments: {
+    type: [Schema.Types.ObjectId]
+  },
+  forum: {
+    type: Boolean,
     required: true
   }
 });

@@ -2,6 +2,7 @@ import type {HydratedDocument, Types} from 'mongoose';
 import type {Freet} from './model';
 import FreetModel from './model';
 import UserCollection from '../user/collection';
+import mongoose from 'mongoose';
 
 /**
  * This files contains a class that has the functionality to explore freets
@@ -14,20 +15,40 @@ import UserCollection from '../user/collection';
 class FreetCollection {
   /**
    * Add a freet to the collection
+   * Update the parent if necessary
    *
    * @param {string} authorId - The id of the author of the freet
-   * @param {string} content - The id of the content of the freet
+   * @param {string} content - The content of the freet
    * @return {Promise<HydratedDocument<Freet>>} - The newly created freet
    */
-  static async addOne(authorId: Types.ObjectId | string, content: string): Promise<HydratedDocument<Freet>> {
+  static async addOne(authorId: Types.ObjectId | string, content: string, parent?: Types.ObjectId | string, tags?: [string]): Promise<HydratedDocument<Freet>> {
     const date = new Date();
+    let parentFreet;
+
     const freet = new FreetModel({
       authorId,
+      parent,
       dateCreated: date,
       content,
-      dateModified: date
+      tags,
+      dateModified: date,
+      forum: false
     });
+
+    if (parent) {
+      parentFreet = await FreetModel.findById(parent);
+      freet.tags = null;
+      if ((parentFreet?.forum) || (parentFreet.parent === undefined && content.length > 140)) {
+        freet.forum = true;
+      }
+
+      const newComments = parentFreet.comments; // Saves new comment to parent's comments
+      newComments.push(freet._id);
+      await parentFreet.save();
+    }
+
     await freet.save(); // Saves freet to MongoDB
+
     return freet.populate('authorId');
   }
 
@@ -60,6 +81,33 @@ class FreetCollection {
   static async findAllByUsername(username: string): Promise<Array<HydratedDocument<Freet>>> {
     const author = await UserCollection.findOneByUsername(username);
     return FreetModel.find({authorId: author._id}).sort({dateModified: -1}).populate('authorId');
+  }
+
+  /**
+   * Get all the freets with the given tag
+   *
+   * @param {string} tag - The tag of freets
+   * @return {Promise<HydratedDocument<Freet>[]>} - An array of all of the freets
+   */
+  static async findAllWithTag(tag: string): Promise<Array<HydratedDocument<Freet>>> {
+    return FreetModel.find({tags: tag});
+  }
+
+  /**
+   * Get 1 page of freets, specifided by page number
+   *
+   * @param {int} pageNumber - The page number we want freets from
+   * @return {Promise<HydratedDocument<Freet>[]>} - An array of freets from the page
+   */
+
+  static async findFreetsOnPage(pageNumber: number): Promise<Array<HydratedDocument<Freet>>> {
+    const resultsPerPage = 20;
+    const page = pageNumber >= 1 ? (pageNumber - 1) : 0;
+    const date = new Date();
+
+    return FreetModel.find({dateModified: {$lte: date}, parent: null})
+      .skip(resultsPerPage * page)
+      .limit(resultsPerPage);
   }
 
   /**

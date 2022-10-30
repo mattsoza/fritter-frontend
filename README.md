@@ -21,7 +21,7 @@ The project is structured as follows:
     - `Common/` contains general form components that can be reused across different concepts
   - `public/` contains base HTML files and static assets (like the default Fritter logo)
   - `router.ts` contains the Vue router
-  - `store.ts` contains the Vuex store, which stores application state and persistent data
+  - `store.ts` contains the Vuex store, which s`tores application state and persistent data
 
 ## Installation
 
