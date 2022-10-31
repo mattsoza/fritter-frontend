@@ -21,7 +21,8 @@
         </h3>
       </article>
     </section>
-    <section>
+    <FreetPageComponent />
+    <!-- <section>
       <header>
         <div class="left">
           <h2>
@@ -54,7 +55,7 @@
       >
         <h3>No freets found.</h3>
       </article>
-    </section>
+    </section> -->
   </main>
 </template>
 
@@ -62,12 +63,14 @@
 import FreetComponent from '@/components/Freet/FreetComponent.vue';
 import CreateFreetForm from '@/components/Freet/CreateFreetForm.vue';
 import GetFreetsForm from '@/components/Freet/GetFreetsForm.vue';
+import FreetPageComponent from '@/components/Pages/FreetPageComponent.vue';
 
 export default {
   name: 'FreetPage',
-  components: {FreetComponent, GetFreetsForm, CreateFreetForm},
+  components: {FreetComponent, GetFreetsForm, CreateFreetForm, FreetPageComponent},
   mounted() {
-    this.$refs.getFreetsForm.submit();
+    // this.$refs.getFreetsForm.submit();
+    // console.log(this.$store.state.freets);
   }
 };
 </script>

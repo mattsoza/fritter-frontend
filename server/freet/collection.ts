@@ -107,7 +107,8 @@ class FreetCollection {
 
     return FreetModel.find({dateModified: {$lte: date}, parent: null})
       .skip(resultsPerPage * page)
-      .limit(resultsPerPage);
+      .limit(resultsPerPage)
+      .populate('authorId');
   }
 
   /**

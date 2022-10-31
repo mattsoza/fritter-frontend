@@ -6,7 +6,7 @@
       Freets Page
     </header>
     <section
-      v-if="freets"
+      v-if="freets && freets.length > 0"
     >
       <FreetComponent
         v-for="freet in freets"
@@ -14,10 +14,13 @@
         :freet="freet"
       />
     </section>
+    <article v-else-if="valid === false">
+      <h3>Problem getting freets. Try refreshing the page</h3>
+    </article>
     <article
       v-else
     >
-      <h3>No freets found :(</h3>
+      <h3>No more freets!</h3>
     </article>
     <!-- https://stackoverflow.com/questions/72858778/vue-render-new-component-based-on-page-count -->
     <!-- Thanks to the above for help with the prev/next page help -->
@@ -27,7 +30,7 @@
     >
       Prev
     </button>
-    <div :is="pageNumber" />
+    <div>{{ pageNumber }}</div>
     <button @click="nextPage">
       Next
     </button>
@@ -48,8 +51,13 @@ export default {
     }
   },
   mounted() {
-    this.$refs.getFreetsForm.submit();
+    // this.$refs.getFreetsForm.submit();
     this.getPage();
+  },
+  updated() {
+    // The below function needs help to be smoother, but ideally it 
+    // will transition you to the top of the page
+    // scroll(0,0);
   },
   methods: {
     async getPage() {
@@ -66,6 +74,7 @@ export default {
         }
         this.valid = true;
         this.freets = res;
+        
       } catch(e) {
         // I plan to put an option for the user to 
         // refresh the call here using the value of 
