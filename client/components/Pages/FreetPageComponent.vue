@@ -8,11 +8,17 @@
     <section
       v-if="freets && freets.length > 0"
     >
+      <!-- v-for loops use indexing beginning at 1 -->
       <FreetComponent
+        v-for="i in Math.min(20, freets.length)" 
+        :key="freets[i-1].id"
+        :freet="freets[i-1]"
+      />
+      <!-- <FreetComponent
         v-for="freet in freets"
         :key="freet.id"
         :freet="freet"
-      />
+      /> -->
     </section>
     <article v-else-if="valid === false">
       <h3>Problem getting freets. Try refreshing the page</h3>
