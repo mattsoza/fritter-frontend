@@ -60,14 +60,15 @@
 </template>
 
 <script>
-import FreetComponent from '@/components/Freet/FreetComponent.vue';
+// import FreetComponent from '@/components/Freet/FreetComponent.vue';
 import CreateFreetForm from '@/components/Freet/CreateFreetForm.vue';
-import GetFreetsForm from '@/components/Freet/GetFreetsForm.vue';
+// import GetFreetsForm from '@/components/Freet/GetFreetsForm.vue';
 import FreetPageComponent from '@/components/Pages/FreetPageComponent.vue';
 
 export default {
   name: 'FreetPage',
-  components: {FreetComponent, GetFreetsForm, CreateFreetForm, FreetPageComponent},
+  // components: {FreetComponent, GetFreetsForm, CreateFreetForm, FreetPageComponent},
+  components: {CreateFreetForm, FreetPageComponent},
   mounted() {
     // this.$refs.getFreetsForm.submit();
     // console.log(this.$store.state.freets);
