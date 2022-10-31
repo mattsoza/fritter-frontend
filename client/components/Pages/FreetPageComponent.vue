@@ -17,6 +17,9 @@
     <article v-else-if="valid === false">
       <h3>Problem getting freets. Try refreshing the page</h3>
     </article>
+    <article v-else-if="freets === null">
+      <h3>Loading...</h3>
+    </article>
     <article
       v-else
     >
@@ -46,7 +49,7 @@ export default {
   data() {
     return {
       pageNumber: 1,
-      valid: false,
+      valid: true,
       freets: null
     }
   },
@@ -65,6 +68,7 @@ export default {
        * Gets the n freets relevant to this page by 
        * making an api call to the backend
        */
+      this.freets = null;
       const url = `/api/home?page=${this.pageNumber}`;
       try {
         const r = await fetch(url);
