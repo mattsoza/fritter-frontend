@@ -3,6 +3,7 @@ import express from 'express';
 import FreetCollection from './collection';
 import * as userValidator from '../user/middleware';
 import * as freetValidator from '../freet/middleware';
+import * as pageValidator from '../pages/middleware';
 import * as util from './util';
 import type {Freet} from './model';
 import e from 'express';
@@ -76,7 +77,7 @@ router.get(
 /**
  * Get the comments to a tweet
  *
- * @name GET /api/freets/:id/comments?forum=bool
+ * @name GET /api/freets/:id/comments?forum=bool&page=pageNumber
  *
  * @return {freetResponse[]} An array of freets that are comments to the id
  * @throws {404} - If no tweet with the given id exists
@@ -84,27 +85,35 @@ router.get(
 router.get(
   '/:freetId/comments',
   [
-    freetValidator.isFreetExists
+    freetValidator.isFreetExists,
+    pageValidator.isPageNumberValid
   ],
   async (req: Request, res: Response) => {
     const freet = await FreetCollection.findOne(req.params.freetId);
-    const freetComments = [];
+    const freetCommentsPromises = [];
     for (const id of freet.comments) {
-      freetComments.push(FreetCollection.findOne(id));
+      freetCommentsPromises.push(FreetCollection.findOne(id));
     }
 
-    console.log(req.query);
+    let freetComments;
     if (req.query.forum === 'true') {
-      res.status(200).json((await Promise.all(freetComments)).filter(
+      freetComments = (await Promise.all(freetCommentsPromises)).filter(
         (freet: Freet) => freet.forum
-      ).map(util.constructFreetResponse));
+      ).map(util.constructFreetResponse);
     } else if (req.query.forum === 'false') {
-      res.status(200).json((await Promise.all(freetComments)).filter(
+      freetComments = (await Promise.all(freetCommentsPromises)).filter(
         (freet: Freet) => !freet.forum
-      ).map(util.constructFreetResponse));
+      ).map(util.constructFreetResponse);
     } else {
       // Freetcomments are started in parallel and then await is used to delay response until ready
-      res.status(200).json((await Promise.all(freetComments)).map(util.constructFreetResponse));
+      freetComments = (await Promise.all(freetCommentsPromises)).map(util.constructFreetResponse);
+    }
+
+    if (req.query.page) {
+      const pageNum = Number(req.query.page);
+      res.status(200).json(freetComments.slice((pageNum - 1) * 20, pageNum * 20));
+    } else {
+      res.status(200).json(freetComments);
     }
   }
 );
