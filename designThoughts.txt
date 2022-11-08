@@ -1,0 +1,7 @@
+I have a component for fetching pages and rendering them, but right now there is only 1 way to get a page element from the API, and that is by getting the home page. However, there are three distinct types of pages that I need to be able to render:
+    - home
+    - comments
+        - forum
+        - freet
+    - author page
+How do I pass the information about the page directly to the freet we're looking for? It might be worth looking at the way that freets are filtered by author. Additionally, it is the context in which a component exists that gives it its data, so I should make the data available in each context: {home: none, comments: freet, author: authorId}. I may also add a slot to the freetPageComponent for buttons that acts as filters, and add those in on the 

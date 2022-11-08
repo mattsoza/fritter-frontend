@@ -2,9 +2,7 @@
 <!-- We've tagged some elements with classes; consider writing CSS using those classes to style them... -->
 
 <template>
-  <article
-    class="freet"
-  >
+  <article class="freet">
     <header>
       <h3 class="author">
         @{{ freet.author }}
@@ -52,6 +50,7 @@
       Posted at {{ freet.dateModified }}
       <i v-if="freet.edited">(edited)</i>
     </p>
+    <CommentsComponent :freet="freet" />
     <section class="alerts">
       <article
         v-for="(status, alert, index) in alerts"
@@ -65,8 +64,11 @@
 </template>
 
 <script>
+import CommentsComponent from '@/components/Comments/CommentsComponent.vue';
+
 export default {
   name: 'FreetComponent',
+  components: {CommentsComponent},
   props: {
     // Data from the stored freet
     freet: {
@@ -78,7 +80,8 @@ export default {
     return {
       editing: false, // Whether or not this freet is in edit mode
       draft: this.freet.content, // Potentially-new content for this freet
-      alerts: {} // Displays success/error messages encountered during freet modification
+      alerts: {}, // Displays success/error messages encountered during freet modification
+      focused: false  // Whether the current freet is being focused on
     };
   },
   methods: {

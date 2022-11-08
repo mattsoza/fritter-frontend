@@ -1,5 +1,5 @@
 import type {Request, Response, NextFunction} from 'express';
-import UserCollection from '../user/collection';
+import UserCollection from './collection';
 
 /**
  * Checks if the current session user (if any) still exists in the database, for instance,

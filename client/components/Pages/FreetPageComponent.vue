@@ -14,11 +14,6 @@
         :key="freets[i-1].id"
         :freet="freets[i-1]"
       />
-      <!-- <FreetComponent
-        v-for="freet in freets"
-        :key="freet.id"
-        :freet="freet"
-      /> -->
     </section>
     <article v-else-if="valid === false">
       <h3>Problem getting freets. Try refreshing the page</h3>
@@ -32,7 +27,7 @@
       <h3>No more freets!</h3>
     </article>
     <!-- https://stackoverflow.com/questions/72858778/vue-render-new-component-based-on-page-count -->
-    <!-- Thanks to the above for help with the prev/next page help -->
+    <!-- Thanks to the above for help with the prev/next page part -->
     <button
       :disabled="pageNumber === 1"
       @click="prevPage"
@@ -52,6 +47,13 @@ import FreetComponent from '@/components/Freet/FreetComponent.vue';
 export default {
   name: 'FreetPageComponent',
   components: {FreetComponent},
+  props: {
+    parentFreet: {
+      type: Object,
+      default: null,
+      required: false
+    }
+  },
   data() {
     return {
       pageNumber: 1,
@@ -74,8 +76,15 @@ export default {
        * Gets the n freets relevant to this page by 
        * making an api call to the backend
        */
+
       this.freets = null;
-      const url = `/api/home?page=${this.pageNumber}`;
+      let url;
+      if (this.parentFreet) {
+        url = `/api/freets/${this.parentFreet._id}/comments?page=${this.pageNumber}`
+      } else {
+        url = `/api/home?page=${this.pageNumber}`;
+      }
+
       try {
         const r = await fetch(url);
         const res = await r.json();
