@@ -41,7 +41,7 @@
 import VEasyDialog from 'v-easy-dialog';
 
 export default {
-  name: 'CommentsComponent',
+  name: 'ShowCommentsComponent',
   // components: {VEasyDialog, FreetComponent, FreetPageComponent, TestComponent},
   components: {VEasyDialog},
   props: {

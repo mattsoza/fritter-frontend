@@ -1,0 +1,98 @@
+<!-- Component that allows you to leave a comment on a freet -->
+
+<template>
+  <article>
+    <button @click="openCommentDialog">
+      Make comment
+    </button>
+    <VEasyDialog v-model="visible">
+      <div class="dialogContainer">
+        <StrippedFreetComponent :freet="freet" />
+        <div class="breakline" />        
+        <form @submit.prevent="submitComment">
+          <textarea
+            id="comment"
+            name="comment"
+            rows="6"
+            placeholder="Your comment..."
+          />
+          <button type="submit">
+            Post comment
+          </button>
+        </form>
+      </div>
+    </VEasyDialog>
+  </article>
+</template>
+
+<script>
+import VEasyDialog from 'v-easy-dialog';
+import StrippedFreetComponent from '@/components/Comments/StrippedFreetComponent.vue';
+
+export default {
+  name: 'MakeCommentComponent',
+  components: {VEasyDialog, StrippedFreetComponent},
+  props: {
+    freet: {
+      type: Object,
+      required: true
+    }
+  },
+  data() {
+    return {
+      visible: false,
+      content: ''
+    }
+  },
+  methods: {
+    openCommentDialog() {
+      this.visible = true;
+    },
+    // Thanks to stackoverflow:
+    // https://stackoverflow.com/questions/42694457/getting-form-data-on-submit#46733931
+    submitComment(evt) {
+      this.content = evt.target.elements.comment.value;
+      fetch(`/api/freets/${this.freet._id}`,{
+        method: 'post',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+
+        // Serealizing our data
+        body: JSON.stringify({
+          content: this.content
+        })
+      }
+      ).then((response) => {
+        console.log(this.freet);
+        console.log(response);
+      })
+    }
+  }
+}
+
+
+</script>
+
+<style>
+.v-easy-dialog--backdrop-btn {
+  background-color: transparent;
+}
+
+.v-easy-dialog--content-container {
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.dialogContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.breakline {
+  border: 2px solid #777777;
+  margin-bottom: 1rem;
+}
+</style>

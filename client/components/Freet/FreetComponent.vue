@@ -50,7 +50,8 @@
       Posted at {{ freet.dateModified }}
       <i v-if="freet.edited">(edited)</i>
     </p>
-    <CommentsComponent :freet="freet" />
+    <!-- <ShowCommentsComponent :freet="freet" /> -->
+    <MakeCommentComponent :freet="freet" />
     <section class="alerts">
       <article
         v-for="(status, alert, index) in alerts"
@@ -64,11 +65,12 @@
 </template>
 
 <script>
-import CommentsComponent from '@/components/Comments/CommentsComponent.vue';
+import ShowCommentsComponent from '@/components/Comments/ShowCommentsComponent.vue';
+import MakeCommentComponent from '@/components/Comments/MakeCommentComponent.vue';
 
 export default {
   name: 'FreetComponent',
-  components: {CommentsComponent},
+  components: {ShowCommentsComponent, MakeCommentComponent},
   props: {
     // Data from the stored freet
     freet: {
