@@ -77,7 +77,7 @@ router.get(
 /**
  * Get the comments to a tweet
  *
- * @name GET /api/freets/:id/comments?forum=bool&page=pageNumber
+ * @name GET /api/freets/:id/comments?forum=value&page=pageNumber
  *
  * @return {freetResponse[]} An array of freets that are comments to the id
  * @throws {404} - If no tweet with the given id exists
@@ -96,11 +96,11 @@ router.get(
     }
 
     let freetComments;
-    if (req.query.forum === 'true') {
+    if (req.query.forum === 'forum') {
       freetComments = (await Promise.all(freetCommentsPromises)).filter(
         (freet: Freet) => freet.forum
       ).reverse().map(util.constructFreetResponse);
-    } else if (req.query.forum === 'false') {
+    } else if (req.query.forum === 'freet') {
       freetComments = (await Promise.all(freetCommentsPromises)).filter(
         (freet: Freet) => !freet.forum
       ).reverse().map(util.constructFreetResponse);

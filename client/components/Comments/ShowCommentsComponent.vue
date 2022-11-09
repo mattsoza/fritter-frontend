@@ -48,7 +48,8 @@ export default {
     freet: {
       type: Object,
       required: true
-    }
+    },
+    
   },
   data() {
     return {

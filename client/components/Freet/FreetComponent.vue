@@ -50,7 +50,7 @@
       Posted at {{ freet.dateModified }}
       <i v-if="freet.edited">(edited)</i>
     </p>
-    <!-- <ShowCommentsComponent :freet="freet" /> -->
+    <ShowCommentsComponent :freet="freet" />
     <MakeCommentComponent :freet="freet" />
     <section class="alerts">
       <article

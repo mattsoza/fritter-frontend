@@ -52,6 +52,11 @@ export default {
       type: Object,
       default: null,
       required: false
+    },
+    mode: {
+      type: String,
+      required: false,
+      default: ''
     }
   },
   data() {
@@ -80,7 +85,8 @@ export default {
       this.freets = null;
       let url;
       if (this.parentFreet) {
-        url = `/api/freets/${this.parentFreet._id}/comments?page=${this.pageNumber}`
+        url = `/api/freets/${this.parentFreet._id}/comments?page=${this.pageNumber}&forum=${this.mode}`;
+        console.log(this.mode);
       } else {
         url = `/api/home?page=${this.pageNumber}`;
       }
@@ -112,5 +118,6 @@ export default {
     },
   }
 }
+
 
 </script>

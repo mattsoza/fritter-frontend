@@ -3,7 +3,7 @@
 <template>
   <article>
     <button @click="openCommentDialog">
-      Make comment
+      Comment
     </button>
     <VEasyDialog v-model="visible">
       <div class="dialogContainer">
@@ -90,7 +90,6 @@ export default {
     }
   }
 }
-
 
 </script>
 
