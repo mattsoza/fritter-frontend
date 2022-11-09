@@ -134,8 +134,16 @@ class FreetCollection {
    * @return {Promise<Boolean>} - true if the freet has been deleted, false otherwise
    */
   static async deleteOne(freetId: Types.ObjectId | string): Promise<boolean> {
-    const freet = await FreetModel.deleteOne({_id: freetId});
-    return freet !== null;
+    const freet = await FreetModel.findById(freetId);
+    if (freet.parent) {
+      const parentFreet = await FreetModel.findById(freetId);
+      const freetObjectId = new mongoose.Types.ObjectId(freetId);
+      parentFreet.comments.splice(parentFreet.comments.indexOf(freetObjectId));
+      await parentFreet.save();
+    }
+
+    const deleted = await FreetModel.deleteOne({_id: freetId});
+    return deleted !== null;
   }
 
   /**
