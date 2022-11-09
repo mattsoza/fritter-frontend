@@ -65,8 +65,27 @@ export default {
         })
       }
       ).then((response) => {
-        console.log(this.freet);
-        console.log(response);
+        if (response.status === 201) {
+          this.$notify({
+            position: "top center",
+            text: "Comment created successfully"
+          })
+        } else if (response.status === 403) {
+          this.$notify({
+            position: "top center",
+            text: "You must be logged in to post comments.",
+          })
+        } else if (response.status === 404) {
+          this.$notify({
+            position: "top center",
+            text: "The freet you are trying to reply to doesn't exist!"
+          })
+        } else if (response.status === 413) {
+          this.$notify({
+            position: "top center",
+            text: "The freet content is not valid! If you are responding to a freet comment, your comment must be 140 characters or less."
+          })
+        }
       })
     }
   }

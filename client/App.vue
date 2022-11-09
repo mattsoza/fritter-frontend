@@ -4,6 +4,10 @@
       <NavBar />
     </header>
     <router-view />
+    <notifications
+      classes="notify"
+      position="top center"
+    />
   </div>
 </template>
 
@@ -28,7 +32,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 * {
   box-sizing: border-box;
 }
@@ -73,5 +77,21 @@ main {
 
 .alerts .success {
     background-color: rgb(45, 135, 87);
+}
+
+.notify {
+  margin-top: 2em;
+  background: #59EB85 !important;
+  color: white !important;
+  border-radius: .2em;
+
+  .notification-content {
+  padding: .5em !important;
+  font-size: 1.2em !important;
+  }
+
+  .error {
+    background: #E66567 !important;
+  }
 }
 </style>
