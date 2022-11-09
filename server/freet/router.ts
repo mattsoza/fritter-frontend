@@ -99,14 +99,14 @@ router.get(
     if (req.query.forum === 'true') {
       freetComments = (await Promise.all(freetCommentsPromises)).filter(
         (freet: Freet) => freet.forum
-      ).map(util.constructFreetResponse);
+      ).reverse().map(util.constructFreetResponse);
     } else if (req.query.forum === 'false') {
       freetComments = (await Promise.all(freetCommentsPromises)).filter(
         (freet: Freet) => !freet.forum
-      ).map(util.constructFreetResponse);
+      ).reverse().map(util.constructFreetResponse);
     } else {
       // Freetcomments are started in parallel and then await is used to delay response until ready
-      freetComments = (await Promise.all(freetCommentsPromises)).map(util.constructFreetResponse);
+      freetComments = (await Promise.all(freetCommentsPromises)).reverse().map(util.constructFreetResponse);
     }
 
     if (req.query.page) {

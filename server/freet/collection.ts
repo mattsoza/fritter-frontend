@@ -90,7 +90,7 @@ class FreetCollection {
    * @return {Promise<HydratedDocument<Freet>[]>} - An array of all of the freets
    */
   static async findAllWithTag(tag: string): Promise<Array<HydratedDocument<Freet>>> {
-    return FreetModel.find({tags: tag});
+    return FreetModel.find({tags: tag}).sort({dateModified: -1});
   }
 
   /**
@@ -108,7 +108,8 @@ class FreetCollection {
     return FreetModel.find({dateModified: {$lte: date}, parent: null})
       .skip(resultsPerPage * page)
       .limit(resultsPerPage)
-      .populate('authorId');
+      .populate('authorId')
+      .sort({dateModified: -1});
   }
 
   /**
