@@ -67,6 +67,10 @@ main {
     color: #fff;
 }
 
+body {
+  font-family: Helvetica, sans-serif;
+}
+
 .alerts p {
     margin: 0;
 }

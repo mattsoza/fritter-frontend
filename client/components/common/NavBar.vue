@@ -11,17 +11,19 @@
       </h1>
     </div>
     <div class="right">
-      <router-link to="/">
+      <router-link class="routelink" to="/">
         Home
       </router-link>
       <router-link
         v-if="$store.state.username"
+        class="routelink"
         to="/account"
       >
         Account
       </router-link>
       <router-link
         v-else
+        class="routelink"
         to="/login"
       >
         Login
@@ -42,11 +44,34 @@
 <style scoped>
 nav {
     padding: 1vw 2vw;
-    background-color: #ccc;
+    background-color: #6A73DA;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
+}
+
+.routelink {
+  border: 1px solid white;
+  padding: 1em;
+  border-radius: .4em;
+  font-size: 1.2em;
+  text-decoration: none;
+  color: white;
+}
+
+.router-link-exact-active {
+  background-color: white;
+  color: #6A73DA;
+}
+
+.routelink:hover {
+  background-color: white;
+  color: #6A73DA;
+}
+
+.routelink:visited {
+  /* color: white; */
 }
 
 .title {

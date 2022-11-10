@@ -12,6 +12,7 @@
         <form @submit.prevent="submitComment">
           <textarea
             id="comment"
+            class="input"
             name="comment"
             rows="6"
             placeholder="Your comment..."
@@ -106,11 +107,17 @@ export default {
 
 .dialogContainer {
   display: flex;
+  
   flex-direction: column;
 }
 
 .breakline {
   border: 2px solid #777777;
   margin-bottom: 1rem;
+}
+
+.input {
+  display: block;
+  width: fit-content;
 }
 </style>

@@ -4,7 +4,7 @@
   <main>
     <section v-if="$store.state.username">
       <header>
-        <h2>Welcome @{{ $store.state.username }}</h2>
+        <h2>Welcome, @{{ $store.state.username }}</h2>
       </header>
       <CreateFreetForm />
     </section>
@@ -21,7 +21,7 @@
         </h3>
       </article>
     </section>
-    <FreetPageComponent />
+    <FreetPageComponent class="frontPageFreets" />
   </main>
 </template>
 
@@ -43,9 +43,20 @@ export default {
 </script>
 
 <style scoped>
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 section {
   display: flex;
   flex-direction: column;
+  width: 50%;
+}
+
+.frontPageFreets {
+  width: 50%;
 }
 
 header, header > * {
