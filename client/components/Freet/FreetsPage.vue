@@ -7,6 +7,7 @@
         <h2>Welcome, @{{ $store.state.username }}</h2>
       </header>
       <CreateFreetForm class="createFreet" />
+      <FreetPageComponent class="frontPageFreets" />
     </section>
     <section v-else>
       <header>
@@ -17,11 +18,11 @@
           <router-link to="/login">
             Sign in
           </router-link>
-          to create, edit, and delete freets.
+          to see, create, edit, and delete freets.
         </h3>
       </article>
     </section>
-    <FreetPageComponent class="frontPageFreets" />
+    <!-- <FreetPageComponent class="frontPageFreets" /> -->
   </main>
 </template>
 
@@ -62,10 +63,6 @@ section {
 .createFreet>button:hover {
   background-color: #6A73DA;
   color: yellow;
-}
-
-.frontPageFreets {
-  width: 50%;
 }
 
 header, header > * {

@@ -2,20 +2,20 @@
 <!-- User should be authenticated in order to see this page -->
 
 <template>
-  <main>
-    <section>
+  <main class="accountPage">
+    <section class="accountPage">
       <header>
         <h2>Account settings for @{{ $store.state.username }}</h2>
       </header>
-      <ChangeUsernameForm />
-      <ChangePasswordForm />
+      <ChangeUsernameForm class="changeusername" />
+      <ChangePasswordForm class="changePass" />
     </section>
-    <section>
+    <section class="accountPage">
       <header>
         <h2>Account management</h2>
       </header>
-      <LogoutForm />
-      <DeleteAccountForm />
+      <LogoutForm class="logout" />
+      <DeleteAccountForm class="deleteAccount" />
     </section>
   </main>
 </template>
@@ -36,3 +36,34 @@ export default {
   }
 };
 </script>
+
+
+<style>
+main.accountPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.changeusername {
+  background-color: #dedede;
+}
+
+.changePass {
+  background-color: #dedede;
+}
+
+.logout {
+  background-color: #dedede;
+}
+
+.deleteAccount {
+  background-color: #E66567;
+}
+
+section.accountPage {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+</style>
