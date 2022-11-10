@@ -6,7 +6,7 @@
       <header>
         <h2>Welcome, @{{ $store.state.username }}</h2>
       </header>
-      <CreateFreetForm />
+      <CreateFreetForm class="createFreet" />
     </section>
     <section v-else>
       <header>
@@ -53,6 +53,15 @@ section {
   display: flex;
   flex-direction: column;
   width: 50%;
+}
+
+.createFreet {
+  border-color: #999999;
+}
+
+.createFreet>button:hover {
+  background-color: #6A73DA;
+  color: yellow;
 }
 
 .frontPageFreets {

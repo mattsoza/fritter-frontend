@@ -5,7 +5,7 @@
 <template>
   <nav>
     <div class="left">
-      <img src="../../public/logo.svg">
+      <img class="logo" src="../../public/logo.svg">
       <h1 class="title">
         Fritter
       </h1>
@@ -42,6 +42,17 @@
 </template>
 
 <style scoped>
+
+h1.title {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: white;
+  font-size: 2.2em;
+}
+
+img.logo {
+  height: 2.6em;
+  width: 2.6em;
+}
 nav {
     padding: 1vw 2vw;
     background-color: #6A73DA;
