@@ -12,7 +12,8 @@ const store = new Vuex.Store({
     filter: null, // Username to filter shown freets by (null = show all)
     freets: [], // All freets created in the app
     username: null, // Username of the logged in user
-    alerts: {} // global success/error messages encountered during submissions to non-visible forms
+    alerts: {}, // global success/error messages encountered during submissions to non-visible forms,
+    newUpdate: false // Dummy bool that gets flipped when a new freet is created client-side
   },
   mutations: {
     alert(state, payload) {
@@ -52,6 +53,9 @@ const store = new Vuex.Store({
       const url = state.filter ? `/api/users/${state.filter}/freets` : '/api/freets';
       const res = await fetch(url).then(async r => r.json());
       state.freets = res;
+    },
+    freetUpdateEvent(state) {
+      state.newUpdate = !state.newUpdate
     }
   },
   // Store data across page refreshes, only discard on browser close

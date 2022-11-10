@@ -66,14 +66,20 @@ export default {
       freets: null
     }
   },
-  mounted() {
-    // this.$refs.getFreetsForm.submit();
-    this.getPage();
+  computed: {
+    freetsUpdate () {
+      return this.$store.state.newUpdate;
+    }
   },
-  updated() {
-    // The below function needs help to be smoother, but ideally it 
-    // will transition you to the top of the page
-    // scroll(0,0);
+  watch: {
+    // The values of these variables are irrelevant; we are simply using this in conjunction with computed to call getPage()
+    // when a new freet is made client-side
+    freetsUpdate () {
+      this.getPage();
+    }
+  },
+  mounted() {
+    this.getPage();
   },
   methods: {
     async getPage() {
