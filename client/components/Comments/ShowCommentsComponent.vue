@@ -21,12 +21,12 @@
         <FreetPageComponent
           v-if="selectedMapOption===freet"
           :parent-freet="freet"
-          :mode="freet"
+          mode="freet"
         />
         <FreetPageComponent 
           v-else
           :parent-freet="freet"
-          :mode="forum"
+          mode="forum"
         />
         <button @click="scrollVisible = false">
           Close dialog
@@ -49,7 +49,6 @@ export default {
       type: Object,
       required: true
     },
-    
   },
   data() {
     return {
