@@ -14,12 +14,12 @@
 
         <ToggleSwitch 
           :options="toggleOptions"
-          :value="toggleValue"
+          :v-model="selection"
           @selected="switchDisplayedComments"
         />
 
         <FreetPageComponent
-          v-if="selectedMapOption===freet"
+          v-if="selection === 'freet'"
           :parent-freet="freet"
           mode="freet"
         />
@@ -53,15 +53,23 @@ export default {
   data() {
     return {
       currentFreet: null,
-      forumMode: false,
       scrollVisible: false,
-      freetType: 'forum',
+      selection: 'freet',
       toggleOptions: {
+        layout: {
+          color: '#69DEF0',
+          backgroundColor: 'white',
+          selectedColor: 'white',
+          selectedBackgroundColor: '#69DEF0'
+        },
+        size: {
+          width: 36.2
+        },
         config: {
-          preSelected: 'forum',
+          preSelected: 'freet',
           items: [
-            {name: 'Forum', value: 'forum', color: 'white', backgroundColor: 'blue'},
-            {name: 'Freet', value: 'freet', color: 'white', backgroundColor: 'red'}
+            {name: 'Freet', value: 'freet'},
+            {name: 'Forum', value: 'forum'}
     ]
   }
 }

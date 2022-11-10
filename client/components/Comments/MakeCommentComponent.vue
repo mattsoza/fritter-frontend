@@ -118,6 +118,6 @@ export default {
 
 .input {
   display: block;
-  width: fit-content;
+  width: 100%;
 }
 </style>
