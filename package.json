@@ -24,6 +24,7 @@
         "nanoid": "^3.3.4",
         "v-easy-dialog": "^1.0.6",
         "vue": "^2.7.13",
+        "vue-games": "^0.2.2",
         "vue-notification": "^1.3.20",
         "vue-router": "^3.6.5",
         "vuejs-toggle-switch": "^2.0.0",

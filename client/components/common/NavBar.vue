@@ -14,6 +14,9 @@
       <router-link class="routelink" to="/">
         Home
       </router-link>
+      <router-link class="routelink" to="/game">
+        Game
+      </router-link>
       <router-link
         v-if="$store.state.username"
         class="routelink"
