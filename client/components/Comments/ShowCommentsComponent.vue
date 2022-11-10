@@ -15,7 +15,7 @@
         <ToggleSwitch 
           :options="toggleOptions"
           :v-model="selection"
-          @selected="switchDisplayedComments"
+          @change="toggle"
         />
 
         <FreetPageComponent
@@ -85,8 +85,8 @@ export default {
       this.currentFreet = this.freet;
       this.isMounted = true
     },
-    switchDisplayedComments() {
-
+    toggle(e) {
+      this.selection = e.value;
     }
   }
 }
