@@ -50,6 +50,7 @@
       Posted at {{ freet.dateModified }}
       <i v-if="freet.edited">(edited)</i>
     </p>
+    <TagComponent :freet="freet" />
     <ShowCommentsComponent :freet="freet" />
     <MakeCommentComponent :freet="freet" />
     <section class="alerts">
@@ -67,10 +68,11 @@
 <script>
 import ShowCommentsComponent from '@/components/Comments/ShowCommentsComponent.vue';
 import MakeCommentComponent from '@/components/Comments/MakeCommentComponent.vue';
+import TagComponent from '@/components/Tag/TagComponent.vue';
 
 export default {
   name: 'FreetComponent',
-  components: {ShowCommentsComponent, MakeCommentComponent},
+  components: {ShowCommentsComponent, MakeCommentComponent, TagComponent},
   props: {
     // Data from the stored freet
     freet: {

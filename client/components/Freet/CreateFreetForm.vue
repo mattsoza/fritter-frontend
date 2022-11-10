@@ -12,7 +12,8 @@ export default {
       method: 'POST',
       hasBody: true,
       fields: [
-        {id: 'content', label: 'Content', value: ''}
+        {id: 'content', label: 'Content', value: ''},
+        {id: 'tag', label: 'Tag (lowercase letters only)', value: ''}
       ],
       title: 'Create a freet',
       refreshFreets: true,
@@ -25,3 +26,7 @@ export default {
   }
 };
 </script>
+
+<style>
+
+</style>

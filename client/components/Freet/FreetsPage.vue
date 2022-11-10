@@ -22,7 +22,6 @@
         </h3>
       </article>
     </section>
-    <!-- <FreetPageComponent class="frontPageFreets" /> -->
   </main>
 </template>
 
